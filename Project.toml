@@ -1,0 +1,10 @@
+name = "PCDGroundRemoval"
+uuid = "eb2b0a40-910f-4951-b6ed-121d849dc02f"
+authors = ["zmeskter"]
+version = "0.1.0"
+
+[deps]
+FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
+
+[compat]
+julia = "1.8"
