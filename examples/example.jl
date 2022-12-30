@@ -10,7 +10,7 @@ for i = 1:size(points)[1]
 end
 grid[1,:,:]
 grid[2,:,:]
-pcl_distances(delete_zero(grid[1,:,:]), delete_zero(grid[2,:,:]))
+pcl_distances(delete_zero(grid[1,:,:]), delete_zero(grid[3,:,:]))
 pcl_distances(delete_zero(grid[1,:,:]), delete_zero(grid[2,:,:]))
 pcl_distances(delete_zero(grid[1,:,:]), Matrix{Float64}(undef,0,3))
 save_xyz(points, "data//test2.xyz")
