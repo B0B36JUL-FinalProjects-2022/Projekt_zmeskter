@@ -1,4 +1,4 @@
-using Revise # this must come before `using ImageInspector`
+using Revise # this must come before `using PCDGroundRemoval`
 using PCDGroundRemoval
 
 points = read_xyz("data//pol.xyz")
