@@ -5,14 +5,16 @@ function delete_zero(points::Array{<:Real,3})
     """
     indexes = []
     for i = 1:size(points)[1]
-        println(points[i,:,:])
-        if sum(points[i,:,:]) != 0
+        #println(points[i,:,:])
+        #println("i=",i, "    ",sum(points[i,:,1:2]) )
+        if sum(points[i,:,1:2]) != 0
             append!(indexes, i)
         end
     end
+    #print(indexes)
     grid2 = zeros((size(indexes)[1], size(points)[2], 3))
     for i = 1:size(indexes)[1]
-        grid2[i,:,:] = points[i,:,:]
+        grid2[i,:,:] = points[indexes[i],:,:]
     end
     return grid2
 end
@@ -24,7 +26,7 @@ function delete_zero(points::Array{<:Real,2})
     indexes = []
     for i=1:size(points)[1]
         #println(sum(points[i,:]), "   ", i)
-        if sum(points[i,:]) != 0
+        if sum(points[i,1:2]) != 0
             append!(indexes, i)
         end
     end
