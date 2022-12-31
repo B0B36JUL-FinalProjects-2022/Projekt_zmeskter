@@ -23,7 +23,7 @@ function delete_zero(points::Array{<:Real,3})
     for i = 1:size(points)[1]
         #println(points[i,:,:])
         #println("i=",i, "    ",sum(points[i,:,1:2]) )
-        if abs(sum(points[i,:,1:2])) +  abs(sum(points[i,:,3]))!= 0
+        if sum(abs.(points[i,:,:])) != 0
             append!(indexes, i)
         end
     end
@@ -52,7 +52,7 @@ function delete_zero(points::Array{<:Real,2})
     indexes = []
     for i=1:size(points)[1]
         #println(sum(points[i,:]), "   ", i)
-        if abs(sum(points[i,1:2])) + abs(points[i,3]) != 0
+        if sum(abs.(points[i,:,:])) != 0
             append!(indexes, i)
         end
     end
