@@ -1,13 +1,29 @@
+"""
+    delete_zero(points::Array{<:Real,3})
+take NxMx3 array of point sorted into N pillars and delete those pillars which contain no point -> [n,:,:] are only zeros
+# Examples
+```julia-repl
+julia> delete_zero([1 1 0; 0 0 0; 0 0 0;;; 0 0 0; 0 0 0;0 0 0;;; 2 2 0; 3 3 0;0 0 0])
+2x3x3 Array{Float64, 3}:
+[:, :, 1] =
+ 1.0  1.0  0.0
+ 0.0  0.0  0.0
 
+[:, :, 2] =
+ 0.0  0.0  0.0
+ 0.0  0.0  0.0
+
+[:, :, 3] =
+ 2.0  2.0  0.0
+ 3.0  3.0  0.0
+```
+"""
 function delete_zero(points::Array{<:Real,3})
-    """
-    take NxMx3 array of point sorted into N pillars and delete those pillars which contain no point -> [n,:,:] are only zeros
-    """
     indexes = []
     for i = 1:size(points)[1]
         #println(points[i,:,:])
         #println("i=",i, "    ",sum(points[i,:,1:2]) )
-        if sum(points[i,:,1:2]) != 0
+        if abs(sum(points[i,:,1:2])) +  abs(sum(points[i,:,3]))!= 0
             append!(indexes, i)
         end
     end
@@ -19,20 +35,30 @@ function delete_zero(points::Array{<:Real,3})
     return grid2
 end
 
+"""
+    delete_zero(points::Array{<:Real,2})
+take Nx3 Matrix of 3D point and delete all occurrences of point [0,0,0]
+
+# Examples
+```julia-repl
+julia> delete_zero([1 1 1; 0 0 0; 2 2 2])
+2x3 Matrix{Float64}:
+ 1.0  1.0  1.0
+ 2.0  2.0  2.0
+```
+"""
 function delete_zero(points::Array{<:Real,2})
-    """
-    take Nx3 Matrix of 3D point and delete all occurrences of point [0,0,0]
-    """
+    
     indexes = []
     for i=1:size(points)[1]
         #println(sum(points[i,:]), "   ", i)
-        if sum(points[i,1:2]) != 0
+        if abs(sum(points[i,1:2])) + abs(points[i,3]) != 0
             append!(indexes, i)
         end
     end
     real_points = zeros((size(indexes)[1], 3))
     for i = 1:size(indexes)[1]
-        real_points[i,:] = points[i,:]
+        real_points[i,:] = points[indexes[i],:]
     end
     return real_points
 end
