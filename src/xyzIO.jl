@@ -1,10 +1,11 @@
 using FileIO
 
+"""
+    save_xyz(points::Matrix{Float64}, filename::String)
 
+Save points stored in Matrix format (Nx3) into an xyz file with specified filename
+"""
 function save_xyz(points::Matrix{Float64}, filename::String)
-    """
-    Save points stored in Matrix format (Nx3) into an xyz file with specified filename
-    """
     prep_points = [join(k, " ") for k in  eachrow(points)]
     len = size(prep_points,1)
     open(filename, "w") do file
@@ -15,10 +16,13 @@ function save_xyz(points::Matrix{Float64}, filename::String)
     end
 end
 
+"""
+    read_xyz(ifile::String)
+    
+Reads in an xyz file and return points cooridantes in Matrix format (Nx3)
+"""
 function read_xyz(ifile::String)
-    """
-    Reads in an xyz file and return points cooridantes in Matrix format (Nx3)
-    """
+
     @time file_contents = readlines(ifile)
     N = size(file_contents, 1)
     points = zeros((N,3))

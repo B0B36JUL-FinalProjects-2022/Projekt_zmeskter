@@ -1,13 +1,13 @@
 
 """
     distance(points1::Array{<:Real}, points2::Array{<:Real})
+
 calculate the distance of two points in 3D space given as two Arrays
 # Examples
 ```julia-repl
 julia> distance([1,1,1],[1,2,3])
 2.23606797749979
 ```
-
 """
 function distance(points1::Array{<:Real}, points2::Array{<:Real})
     #d = ((x2 - x1)2 + (y2 - y1)2 + (z2 - z1)2)1/2 
@@ -18,6 +18,7 @@ end
 
 """
     distance(points1::Array{<:Real}, points2::Matrix{<:Real})
+
 calculate distances of points from cluster (points2) given as Matrix from one specified point (points1) given as Array
 # Examples
 ```julia-repl
@@ -38,6 +39,7 @@ function distance(points1::Array{<:Real}, points2::Matrix{<:Real})
 end
 """
     distance(points1::Matrix{<:Real},points2::Matrix{<:Real})
+    
 calculate the distance of two clusters of points given as Matrix
 where the distance of these clusters is defined as the smallest distance between two points where each is from a different cluster
 # Examples

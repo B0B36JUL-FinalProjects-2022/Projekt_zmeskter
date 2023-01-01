@@ -1,5 +1,6 @@
 """
     delete_zero(points::Array{<:Real,3})
+
 take NxMx3 array of point sorted into N pillars and delete those pillars which contain no point -> [n,:,:] are only zeros
 # Examples
 ```julia-repl
@@ -37,8 +38,8 @@ end
 
 """
     delete_zero(points::Array{<:Real,2})
-take Nx3 Matrix of 3D point and delete all occurrences of point [0,0,0]
 
+take Nx3 Matrix of 3D point and delete all occurrences of point [0,0,0]
 # Examples
 ```julia-repl
 julia> delete_zero([1 1 1; 0 0 0; 2 2 2])
