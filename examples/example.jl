@@ -15,14 +15,16 @@ grid = make_pillar_grid(points;grid_box_size= 1.8)
 ground = label_ground_points(grid; threshold = 0.4)
 possible_ground_idx = findall(pts -> pts < 0, ground[:,3])
 ground = ground[possible_ground_idx, :]
-possible_ground = labels_single_ground_points(points)
+#remove ground
+without_ground = remove_ground_points(grid; threshold = 0.4)
+
 #save data after dron removal
 save_xyz(points, "data//test2.xyz")
 
 #find if point is in pointcloud
-pts = points[2,:]
-findall(all(points .!= pts', dims=2)[:, 1])
-
+pts = ground[1,:]
+all(points .== pts', dims=2)
+findall(all(points .== pts', dims=2)[:, 1])
 #examples of distance and removal functions calls
 delete_zero(grid[1,:,:])
 distance([0, 0, 0],points)
@@ -36,4 +38,5 @@ using Plots
 
 plotlyjs()
 scatter3d(points[:,1], points[:,2], points[:, 3],color = RGB(0,1,0), markersize = 1)
+scatter3d(without_ground[:,1], without_ground[:,2], without_ground[:, 3],color = RGB(0,1,0), markersize = 1)
 scatter3d!(ground[:,1], ground[:,2], ground[:, 3], color = RGB(1,0,0),markersize = 1)

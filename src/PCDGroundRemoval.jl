@@ -117,27 +117,36 @@ function label_ground_points(grid::Array{<:Real}; threshold = 0.45)
 
 end
 
-function labels_single_ground_points(points)
-    possible_ground = points[findall(pts -> pts < 0, points[:,3]),:]
-    to_delete = zeros((1,3))
-    #println(size(possible_ground)[1])
-    #println(typeof(possible_ground))
-    for i = 1: size(possible_ground)[1]
-        #print(np.asarray(pcd_test.points))
-        point_distances = distance(possible_ground[i,:], points)
-        before = size(point_distances)[1]
-        point_distances = point_distances[findall(pts -> pts < 0.5, point_distances),:]
-        after = size(point_distances)[1]
-        #println(i)
-        if (before - after) < 6
-            to_delete = vcat(to_delete, [possible_ground[i,:]])
+function remove_ground_points(grid::Array{<:Real}; threshold = 0.45)
+    ground_pts = zeros((1,3))
+    grid_size = size(grid)
+    for i = 1:grid_size[1]
+        all_points = grid[i, :,:]
+        sums = sum(abs.(all_points), dims = 2)
+        real_points_idx = findall(pts -> pts != 0, sums[:,])
+        real_points = all_points[real_points_idx,:]
+        #println(real_points, "    ", size(real_points))
+        if(size(real_points)[1] == 0)
+            continue
         end
-    end 
-    return to_delete
+
+        min_point = minimum(real_points[:, 3])
+        #println(min_point)
+        ground_points_idx = findall(pts -> pts >= min_point +threshold, real_points[:,3])
+        ground_points = real_points[ground_points_idx,:]
+        possible_ground_idx = findall(pts -> pts >= 0, ground_points[:,3])
+        ground_points = ground_points[possible_ground_idx, :]
+        #println(ground_points)
+        ground_pts =vcat(ground_pts, ground_points)
+        ground_pts =unique(ground_pts, dims = 1)
+
+    end
+    return ground_pts
+
 end
 
 
 
 
-export make_pillar_grid, remove_drone, label_ground_points, labels_single_ground_points
+export make_pillar_grid, remove_drone, label_ground_points, remove_ground_points
 end
