@@ -1,4 +1,3 @@
-
 """
     distance(points1::Array{<:Real}, points2::Array{<:Real})
 
@@ -10,11 +9,19 @@ julia> distance([1,1,1],[1,2,3])
 ```
 """
 function distance(points1::Array{<:Real}, points2::Array{<:Real})
-    #d = ((x2 - x1)2 + (y2 - y1)2 + (z2 - z1)2)1/2 
+    #d = ((x2 - x1)2 + (y2 - y1)2 + (z2 - z1)2)1/2
+    N = size(points1)[1]
+    if N == 2
+        x1,y1 = points1
+        x2,y2 = points2
+        return sqrt((x2 - x1)^2 + (y2 - y1)^2)
+    end
     x1,y1,z1 = points1
     x2,y2,z2 = points2
     return sqrt((x2 - x1)^2 + (y2 - y1)^2 + (z2 - z1)^2)
 end
+
+
 
 """
     distance(points1::Array{<:Real}, points2::Matrix{<:Real})
@@ -52,7 +59,6 @@ function distance(points1::Matrix{<:Real},points2::Matrix{<:Real})
     
     size1 = size(points1)[1]
     size2 = size(points2)[1]
-    #println(size1, "   ", size2)
     if size1==0 || size2 == 0
         error("one of the clusters contains no point")
     end
@@ -64,3 +70,4 @@ function distance(points1::Matrix{<:Real},points2::Matrix{<:Real})
 end
 
 export  distance
+
