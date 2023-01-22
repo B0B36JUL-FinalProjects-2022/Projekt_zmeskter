@@ -17,20 +17,23 @@ function save_xyz(points::Matrix{Float64}, filename::String)
 end
 
 """
-    read_xyz(ifile::String)
+    read_xyz(file::String)
     
 Reads in an xyz file and return points cooridantes in Matrix format (Nx3)
 """
-function read_xyz(ifile::String)
-
-    @time file_contents = readlines(ifile)
-    N = size(file_contents, 1)
-    points = zeros((N,3))
-    for (i, line) in enumerate(file_contents)
-        coords = split(file_contents[i])
-        points[i,:] = parse.(Float64, coords)
+function read_xyz(file::String)
+    if  isfile(file)
+        @time file_contents = readlines(file)
+        N = size(file_contents, 1)
+        points = zeros((N,3))
+        for (i, line) in enumerate(file_contents)
+            coords = split(file_contents[i])
+            points[i,:] = parse.(Float64, coords)
+        end
+        return points
+    else
+        throw(LoadError(file,0,0))
     end
-    return points
 end
 
 export save_xyz, read_xyz
