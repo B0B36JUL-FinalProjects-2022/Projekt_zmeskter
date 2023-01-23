@@ -6,6 +6,7 @@ include("xyzIO.jl")
 include("pointsDeleting.jl")
 include("distances.jl")
 include("circleFitting.jl")
+include("classify.jl")
 
 
 """
@@ -142,5 +143,5 @@ function clustering(points, eps, min)
 end
 
 
-export make_pillar_grid, remove_drone, label_ground_points, remove_ground_points, clustering, RANSAC, center, fit_circle, fit_dist, my_extremas
+export make_pillar_grid, remove_drone, label_ground_points, remove_ground_points, clustering, RANSAC, center, fit_circle, fit_dist, my_extremas, classify_bare_trunk, get_color
 end
