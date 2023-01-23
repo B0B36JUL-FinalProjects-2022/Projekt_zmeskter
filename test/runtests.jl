@@ -1,3 +1,6 @@
+using Pkg
+Pkg.activate(pwd())
+Pkg.resolve()
 using PCDGroundRemoval
 using Test
 
