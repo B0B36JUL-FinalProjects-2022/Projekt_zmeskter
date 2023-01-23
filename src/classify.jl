@@ -1,3 +1,5 @@
+using Plots
+
 """
     classify_bare_trunk(cluster; threshold1 = 0.1, threshold2 = 0.1, accuracy= 0.75, ignore_points = 20)
 
@@ -13,12 +15,12 @@ and the remaining clusters are coloured red - they do not contain a tree, but ar
 """
 function classify_bare_trunk(clusters; threshold1 = 0.1, threshold2 = 0.1, accuracy= 0.75, ignore_points = 20)
     x0,y0,r = RANSAC(clusters[1][:,1:2],2000,threshold1)
-    color = get_color(clusters[1], r,threshold2,accuracy, ignore_points)
+    color = get_color(clusters[1],x0,y0, r,threshold2,accuracy, ignore_points)
     plt = scatter3d(clusters[1][:,1], clusters[1][:,2], clusters[1][:, 3],color = color, markersize = 1)
     for i =2:61
         x0,y0,r = RANSAC(clusters[i][:,1:2],2000,threshold1)
-        color = get_color(clusters[i],r,threshold2,accuracy, ignore_points)
-        scatter3d!(clusters[i][:,1], clusters[i][:,2], clusters[i][:, 3],color =clr, markersize = 1)
+        color = get_color(clusters[i],x0,y0,r,threshold2,accuracy, ignore_points)
+        scatter3d!(clusters[i][:,1], clusters[i][:,2], clusters[i][:, 3],color =color, markersize = 1)
     end
     return plt
 end
@@ -36,7 +38,7 @@ take Nx3 matrix of points from one cluster and returns the color that correspond
     threshold: tolerance of the distance from the circle to take the point as part of the trunk
     ignore_points: minimum amount of points in the cluter to be considered
 """
-function get_color(cluster,r, threshold, accuracy, ignore_points)
+function get_color(cluster,x0,y0,r, threshold, accuracy, ignore_points)
     dist = distance([x0,y0], cluster[:,1:2])
     N = size(dist)[1]
     cnt = 0

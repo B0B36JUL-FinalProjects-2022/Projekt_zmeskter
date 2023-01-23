@@ -41,12 +41,12 @@ distance(delete_zero(grid[1,:,:]), delete_zero(grid[2,:,:]))
 distance(delete_zero(grid[2,:,:]), delete_zero(grid[1,:,:]))
 distance(delete_zero(grid[1,:,:]), Matrix{Float64}(undef,0,3))
 
+using Plots
 #classification + visualization
+plotlyjs()
 plt = classify_bare_trunk(clusters;threshold1 = 0.1, threshold2 = 0.1, accuracy = 0.75, ignore_points = 20)
 
 #visualizations
-using Plots
-
 plotlyjs()
 scatter3d(points[:,1], points[:,2], points[:, 3],color = RGB(0,1,0), markersize = 1)
 scatter3d(without_ground[:,1], without_ground[:,2], without_ground[:, 3],color = RGB(0,1,0), markersize = 1)
