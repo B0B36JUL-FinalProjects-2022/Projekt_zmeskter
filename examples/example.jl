@@ -1,3 +1,6 @@
+using Pkg
+Pkg.activate(pwd() * "/examples")
+Pkg.instantiate()
 using Revise # this must come before `using PCDGroundRemoval`
 using PCDGroundRemoval
 

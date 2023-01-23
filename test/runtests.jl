@@ -1,6 +1,6 @@
 using Pkg
 Pkg.activate(pwd())
-Pkg.resolve()
+Pkg.resolve() #to make sure everything will work correctly after download
 using PCDGroundRemoval
 using Test
 
