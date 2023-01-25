@@ -26,10 +26,10 @@ ground = ground[possible_ground_idx, :]
 without_ground = remove_ground_points(grid; threshold = 0.4)
 
 #save data after dron removal
-save_xyz(points, "data//without_ground_2.xyz")
+save_xyz(points, "data//without_ground.xyz")
 
 #clustering
-clusters_dbscan = clustering(transpose(without_ground[:,1:2]), 0.12, 2)
+clusters_dbscan = clustering(Matrix(transpose(without_ground[:,1:2])), 0.12, 2)
 clusters_ind = getproperty.(clusters_dbscan, :core_indices)
 clusters = [without_ground[i,:] for i in clusters_ind] #points sorted into clusters
 

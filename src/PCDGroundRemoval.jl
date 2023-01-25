@@ -91,6 +91,12 @@ function remove_drone(points::Matrix{<:Real}, distances::Array{<:Real})
     return points
 end
 
+"""
+    remove_ground_points(grid::Array{<:Real}; threshold = 0.45)
+
+Take grid (NxMx3 array) with the points sorted into pillars and return 
+the Nx3 matrix of the points labeled as ground.
+"""
 function label_ground_points(grid::Array{<:Real}; threshold = 0.45)
     ground_pts = zeros((1,3))
     grid_size = size(grid)
@@ -114,6 +120,12 @@ function label_ground_points(grid::Array{<:Real}; threshold = 0.45)
 
 end
 
+"""
+    remove_ground_points(grid::Array{<:Real}; threshold = 0.45)
+
+Take grid (NxMx3 array) with the points sorted into pillars, delete the points that belong to the ground 
+and return the Nx3 matrix of the remaining points.
+"""
 function remove_ground_points(grid::Array{<:Real}; threshold = 0.45)
     ground_pts = zeros((1,3))
     grid_size = size(grid)
@@ -136,8 +148,17 @@ function remove_ground_points(grid::Array{<:Real}; threshold = 0.45)
     return ground_pts
 
 end
+"""
+    clustering(points::Matrix{<:Real}, eps::Real, min::Int)
 
-function clustering(points, eps, min)
+Take Nx3 matrix of points and using DBSCAN devide them into clusters
+# Params:
+
+eps: the radius of a point neighborhood
+
+min: the minimum number of neighboring points (including itself) to qualify a point as a density point
+"""
+function clustering(points::Matrix{<:Real}, eps::Real, min::Int)
     return dbscan(points, eps, min_neighbors = min, min_cluster_size = 20)
 end
 
