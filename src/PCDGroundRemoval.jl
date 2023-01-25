@@ -66,7 +66,8 @@ function make_pillar_grid(points::Matrix{<:Real}; grid_box_size = 1.8)
             y_part = intersect(y_part1,y_part2)
             common = intersect(x_part,y_part)
             shape = size(common)
-            grid[(i-1)*x_size + j, 1:shape[1], :] = points[common,:]
+            #println((i-1)*y_size +j,"   ", j,"   ", i, "   ", x_size, "   " , y_size)
+            grid[(i-1)*y_size + j, 1:shape[1], :] = points[common,:]
         end
     end
     return delete_zero(grid)
@@ -128,8 +129,6 @@ function remove_ground_points(grid::Array{<:Real}; threshold = 0.45)
         min_point = minimum(real_points[:, 3])
         ground_points_idx = findall(pts -> pts >= min_point +threshold, real_points[:,3])
         ground_points = real_points[ground_points_idx,:]
-        possible_ground_idx = findall(pts -> pts >= 0, ground_points[:,3])
-        ground_points = ground_points[possible_ground_idx, :]
         ground_pts =vcat(ground_pts, ground_points)
         ground_pts =unique(ground_pts, dims = 1)
 

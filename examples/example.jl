@@ -6,6 +6,8 @@ using PCDGroundRemoval
 
 #load data
 points = read_xyz("data//1651738515.007457803.xyz")
+points = read_xyz("data//1651738522.626975236.xyz")
+points = read_xyz("data//1651738552.829550165.xyz")
 #compute distances from [0,0,0]
 distances = distance([0, 0, 0],points)
 
@@ -24,7 +26,7 @@ ground = ground[possible_ground_idx, :]
 without_ground = remove_ground_points(grid; threshold = 0.4)
 
 #save data after dron removal
-save_xyz(points, "data//without_ground.xyz")
+save_xyz(points, "data//without_ground_2.xyz")
 
 #clustering
 clusters_dbscan = clustering(transpose(without_ground[:,1:2]), 0.12, 2)
